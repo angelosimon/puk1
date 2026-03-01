@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ValeraHub - The World's Biggest Valera Site</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --orange: #ff9000;
+  --bg: #000;
+  --dark: #0a0a0a;
+  --nav-bg: #0a0a0a;
+  --text: #fff;
+  --muted: #979797;
+  --card-bg: #111;
+  --border: #1e1e1e;
+  --radius: 10px;
+}
+
+body { background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
+a { text-decoration: none; color: inherit; cursor: pointer; }
+button { cursor: pointer; font-family: Arial, Helvetica, sans-serif; }
+
+/* ═══════════════════════════════════
+   AGE GATE
+═══════════════════════════════════ */
+#age-gate {
+  position: fixed; inset: 0; background: #000;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.age-box {
+  background: #000; border: 1px solid #1e1e1e; border-radius: 18px;
+  width: 600px; max-width: 95vw; padding: 40px 50px;
+  text-align: center;
+}
+.age-lang {
+  position: absolute; top: 20px; left: 20px;
+  background: #111; border: 1px solid #222; border-radius: 10px;
+  padding: 5px 10px; color: #ccc; font-size: 12px; display: flex; align-items: center; gap: 6px;
+}
+
+.age-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 24px; gap: 0; }
+.age-logo-w {
+  background: #000; color: #fff; font-weight: 900; font-size: 22px;
+  padding: 5px 10px; border-radius: 8px 0 0 8px; letter-spacing: -0.5px;
+  border: 2px solid #fff; border-right: none;
+}
+.age-logo-o {
+  background: var(--orange); color: #000; font-weight: 900; font-size: 22px;
+  padding: 5px 10px; border-radius: 0 8px 8px 0; letter-spacing: -0.5px;
+}
+
+.age-title { font-size: 30px; font-weight: bold; color: #fff; margin-bottom: 18px; }
+
+.age-notice-btn {
+  display: inline-block; border: 1px solid var(--orange);
+  color: var(--orange); padding: 6px 18px; border-radius: 20px;
+  font-size: 12px; font-weight: bold; margin-bottom: 20px;
+}
+.age-notice-btn:hover { background: var(--orange); color: #000; }
+
+.age-text { font-size: 13px; color: #ccc; line-height: 1.7; margin-bottom: 8px; }
+.age-link { color: var(--orange); }
+.age-link:hover { text-decoration: underline; }
+
+.age-btns { display: flex; gap: 16px; margin: 28px 0 20px; }
+.age-btn-enter {
+  flex: 1; padding: 14px; border: 2px solid var(--orange);
+  background: transparent; color: #fff; font-size: 15px; font-weight: bold; border-radius: 12px;
+}
+.age-btn-enter:hover { background: var(--orange); color: #000; }
+.age-btn-exit {
+  flex: 1; padding: 14px; border: 2px solid #333;
+  background: transparent; color: #fff; font-size: 15px; font-weight: bold; border-radius: 12px;
+}
+.age-btn-exit:hover { border-color: #666; }
+
+.age-parental { font-size: 12px; color: #666; margin-bottom: 6px; }
+.age-footer { font-size: 12px; color: #444; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.rta-badge { background: #fff; color: #000; font-weight: 900; font-size: 13px; padding: 2px 5px; border-radius: 4px; }
+
+/* ═══════════════════════════════════
+   MAIN SITE (hidden until age gate passes)
+═══════════════════════════════════ */
+#site { display: none; background: #000; min-height: 100vh; }
+
+/* TOP BAR */
+#topbar {
+  background: #000; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid #111; gap: 28px;
+}
+#topbar a { font-size: 11px; color: #666; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
+#topbar a:hover { color: #fff; }
+
+/* HEADER */
+#header {
+  background: #000; height: 60px;
+  display: flex; align-items: center;
+  padding: 0 20px; gap: 14px;
+  border-bottom: 1px solid #111;
+}
+.menu-btn { background: none; border: none; color: var(--orange); font-size: 20px; padding: 4px; }
+
+.logo { display: flex; align-items: center; flex-shrink: 0; gap: 0; }
+.logo-w {
+  background: #000; color: #fff; font-weight: 900; font-size: 18px;
+  padding: 4px 8px; border-radius: 8px 0 0 8px; letter-spacing: -0.5px;
+  border: 2px solid #fff; border-right: none;
+}
+.logo-o {
+  background: var(--orange); color: #000; font-weight: 900; font-size: 18px;
+  padding: 4px 8px; border-radius: 0 8px 8px 0; letter-spacing: -0.5px;
+}
+
+.search-wrap { flex: 1; display: flex; max-width: 640px; margin: 0 auto; }
+.search-wrap input {
+  flex: 1; height: 38px; background: #111; border: 1px solid #222; border-right: none;
+  border-radius: 20px 0 0 20px; padding: 0 18px; font-size: 13px; color: #fff; outline: none;
+}
+.search-wrap input::placeholder { color: #555; }
+.search-wrap input:focus { border-color: #444; }
+.search-wrap button {
+  height: 38px; width: 54px; background: var(--orange);
+  border: none; border-radius: 0 20px 20px 0; font-size: 16px; display: flex; align-items: center; justify-content: center;
+}
+.search-wrap button:hover { background: #ffaa00; }
+
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.icon-btn { background: none; border: none; color: #fff; font-size: 18px; padding: 4px; opacity: 0.7; }
+.icon-btn:hover { opacity: 1; }
+
+.btn-sex {
+  background: var(--orange); border: none; border-radius: 20px;
+  padding: 7px 18px; color: #000; font-size: 12px; font-weight: bold;
+}
+
+/* MAIN NAV */
+#main-nav {
+  background: #000; border-bottom: 1px solid #111;
+  display: flex; align-items: stretch; height: 44px;
+  padding: 0 16px; gap: 0; overflow-x: auto; scrollbar-width: none;
+}
+#main-nav::-webkit-scrollbar { display: none; }
+.nav-item {
+  display: flex; align-items: center; gap: 5px;
+  padding: 0 16px; height: 100%; font-size: 13px; font-weight: bold; color: #777;
+  border-bottom: 3px solid transparent; white-space: nowrap; flex-shrink: 0;
+  transition: color 0.15s;
+}
+.nav-item:hover { color: #fff; }
+.nav-item.active { color: #fff; border-bottom-color: var(--orange); }
+.nav-item .arrow { font-size: 9px; color: #555; }
+
+/* PROMO STRIP */
+#promo-strip {
+  background: #000; text-align: center; padding: 8px;
+  font-size: 12px; color: #777; border-bottom: 1px solid #111;
+}
+#promo-strip a { color: var(--orange); }
+#promo-strip a:hover { text-decoration: underline; }
+
+/* CONTENT */
+#content { max-width: 1200px; margin: 0 auto; padding: 18px 20px; background: #000; }
+
+/* SECTION TITLE */
+.section-title-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; margin-top: 4px;
+}
+.section-title-text { font-size: 17px; font-weight: bold; color: #fff; }
+
+/* TAGS ROW */
+.tags-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 22px;
+  overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap;
+}
+.tags-row::-webkit-scrollbar { display: none; }
+.tag-pill {
+  flex-shrink: 0; padding: 7px 16px; background: #111; border-radius: 20px;
+  font-size: 12px; color: #bbb; border: 1px solid #222; white-space: nowrap;
+  transition: all 0.15s;
+}
+.tag-pill:hover { background: #1e1e1e; color: #fff; border-color: #333; }
+.tag-next { flex-shrink: 0; padding: 7px 14px; background: #111; border-radius: 20px; border: 1px solid #222; color: #bbb; font-size: 13px; }
+
+/* VIDEO GRID */
+.video-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 14px; margin-bottom: 30px; }
+
+.video-item { cursor: pointer; }
+.video-thumb {
+  position: relative; width: 100%; aspect-ratio: 16/9;
+  border-radius: 10px; overflow: hidden; margin-bottom: 8px;
+  background: #111; display: flex; align-items: center; justify-content: center;
+}
+.thumb-inner {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 44px; transition: transform 0.3s;
+}
+.video-item:hover .thumb-inner { transform: scale(1.08); }
+
+.v-duration {
+  position: absolute; bottom: 7px; right: 7px;
+  background: rgba(0,0,0,0.85); color: #fff; font-size: 11px; font-weight: bold;
+  padding: 2px 6px; border-radius: 6px;
+}
+.v-hd {
+  position: absolute; bottom: 7px; left: 7px;
+  background: rgba(0,0,0,0.7); color: #fff; font-size: 9px; font-weight: bold;
+  padding: 2px 5px; border-radius: 5px; letter-spacing: 0.5px;
+}
+.v-ru {
+  position: absolute; bottom: 7px; left: 7px;
+  background: #c0392b; color: #fff; font-size: 9px; font-weight: bold;
+  padding: 2px 5px; border-radius: 5px;
+}
+.v-ad-badge {
+  position: absolute; top: 7px; left: 7px;
+  background: rgba(0,0,0,0.7); color: #fff; font-size: 9px;
+  padding: 2px 5px; border-radius: 5px;
+}
+
+.v-meta { display: flex; align-items: flex-start; gap: 8px; }
+.v-meta-main { flex: 1; min-width: 0; }
+.v-author-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
+.v-author { font-size: 11px; color: #ccc; font-weight: bold; }
+.v-author:hover { color: var(--orange); }
+.v-verified { color: #4a90d9; font-size: 10px; }
+.v-premium-star { color: var(--orange); font-size: 10px; }
+.v-title { font-size: 12px; color: #ccc; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 3px; }
+.video-item:hover .v-title { color: var(--orange); }
+.v-views { font-size: 11px; color: #888; }
+.v-dots { color: #777; font-size: 16px; flex-shrink: 0; padding-top: 2px; }
+.v-dots:hover { color: #fff; }
+
+/* AD BLOCK */
+.ad-block {
+  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 16/9; font-size: 12px; color: #555;
+  flex-direction: column; gap: 4px;
+}
+.ad-block .ad-label { font-size: 10px; color: #444; }
+.remove-ad { font-size: 10px; color: #555; text-align: right; margin-top: 4px; }
+.remove-ad:hover { color: #999; }
+
+/* THUMB GRADIENTS — darker for pure black feel */
+.g1 { background: linear-gradient(160deg,#050d1f,#0d1f4a); }
+.g2 { background: linear-gradient(160deg,#1f0505,#4a0d0d); }
+.g3 { background: linear-gradient(160deg,#051f0a,#0d4a1a); }
+.g4 { background: linear-gradient(160deg,#1f1505,#4a300d); }
+.g5 { background: linear-gradient(160deg,#150521,#300d4a); }
+.g6 { background: linear-gradient(160deg,#05151f,#0d304a); }
+.g7 { background: linear-gradient(160deg,#1f0515,#4a0d30); }
+.g8 { background: linear-gradient(160deg,#0d1f05,#1f4a0d); }
+.g9 { background: linear-gradient(160deg,#1f1f05,#3a3a0d); }
+.g10 { background: linear-gradient(160deg,#0d0d1f,#151555); }
+.g11 { background: linear-gradient(160deg,#1f0d05,#4a2510); }
+.g12 { background: linear-gradient(160deg,#051f1f,#0d4a4a); }
+
+/* FOOTER */
+#footer { background: #000; border-top: 1px solid #111; padding: 26px 20px; margin-top: 10px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-logo-row { display: flex; align-items: center; gap: 0; margin-bottom: 18px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 12px; }
+.footer-links a { font-size: 11px; color: #444; padding: 0 10px; border-right: 1px solid #1a1a1a; line-height: 1.8; }
+.footer-links a:first-child { padding-left: 0; }
+.footer-links a:hover { color: #aaa; }
+.footer-copy { font-size: 11px; color: #2a2a2a; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ AGE GATE ═══ -->
+<div id="age-gate">
+  <div class="age-lang">🌐 Russian ▾</div>
+  <div class="age-box">
+    <div class="age-logo">
+      <span class="age-logo-w">Valera</span><span class="age-logo-o">hub</span>
+    </div>
+    <div class="age-title">Это сайт для взрослых</div>
+    <a href="#" class="age-notice-btn">Notice to Users</a>
+    <p class="age-text">
+      Данный сайт содержит материалы с возрастными ограничениями, включая
+      неловкие сцены бытового характера. Входя на сайт, вы подтверждаете,
+      что вам исполнилось 18 лет или вы достигли совершеннолетия в той юрисдикции,
+      из которой вы заходите на сайт, и даёте согласие на просмотр
+      контента с Валерой.<br><br>
+      <a href="#" class="age-link">Уведомление для правоохранительных органов</a>
+    </p>
+    <div class="age-btns">
+      <button class="age-btn-enter" onclick="enterSite()">Мне 18 лет и более — Вход</button>
+      <button class="age-btn-exit" onclick="alert('Удачи без Валеры 😔')">Мне нет 18 лет — Выход</button>
+    </div>
+    <p class="age-parental">
+      На нашей <a href="#" class="age-link">странице родительского контроля</a> описано,
+      как можно легко заблокировать доступ к этому сайту.<br>
+      <a href="#" class="age-link">новыми Условиями обслуживания</a>
+    </p>
+    <div class="age-footer">
+      <span>© ValeraHub.com, 2026</span>
+      <span class="rta-badge">RTA®</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN SITE ═══ -->
+<div id="site">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <a href="#">МЕМЫ</a>
+    <a href="#">ФАНЦЕНТР</a>
+    <a href="#">МАГАЗИН ВАЛЕРЫ</a>
+    <a href="#">ИНСАЙТЫ</a>
+    <a href="#">САЙТЫ</a>
+    <a href="#">ДОВЕРИЕ И БЕЗОПАСНОСТЬ</a>
+    <a href="#">RU</a>
+  </div>
+
+  <!-- HEADER -->
+  <div id="header">
+    <button class="menu-btn">☰</button>
+    <a href="#" class="logo"><span class="logo-w">Valera</span><span class="logo-o">hub</span></a>
+    <div class="search-wrap">
+      <input type="text" placeholder="Изучить Валерахаб">
+      <button>🔍</button>
+    </div>
+    <div class="header-right">
+      <button class="btn-sex">Валера 3Ш</button>
+      <button class="icon-btn">📹</button>
+      <button class="icon-btn">📸</button>
+      <button class="icon-btn">👤</button>
+    </div>
+  </div>
+
+  <!-- MAIN NAV -->
+  <div id="main-nav">
+    <a href="#" class="nav-item active">ГЛАВНАЯ СТРАНИЦА</a>
+    <a href="#" class="nav-item">ВИДЕО <span class="arrow">▾</span></a>
+    <a href="#" class="nav-item">КАТЕГОРИИ <span class="arrow">▾</span></a>
+    <a href="#" class="nav-item">LIVE CAMS <span class="arrow">▾</span></a>
+    <a href="#" class="nav-item">ВАЛЕРОЗВЁЗДЫ <span class="arrow">▾</span></a>
+    <a href="#" class="nav-item">FUCK NOW</a>
+    <a href="#" class="nav-item">СООБЩЕСТВО <span class="arrow">▾</span></a>
+    <a href="#" class="nav-item">ФОТО И ГИФКИ <span class="arrow">▾</span></a>
+  </div>
+
+  <!-- PROMO STRIP -->
+  <div id="promo-strip">
+    Подними свой досуг на новый уровень с <a href="#">товарами ValeraHub</a>, доступно сейчас!
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <div class="section-title-row">
+      <div class="section-title-text">Видео с Валерой, пользующиеся спросом в Украине 🇺🇦</div>
+    </div>
+
+    <!-- TAGS -->
+    <div class="tags-row">
+      <div class="tag-pill">красивый фейл</div>
+      <div class="tag-pill">быстро и нелепо</div>
+      <div class="tag-pill">с котом</div>
+      <div class="tag-pill">на кухне</div>
+      <div class="tag-pill">за 40</div>
+      <div class="tag-pill">игра в cs:go</div>
+      <div class="tag-pill">соседи</div>
+      <div class="tag-pill">настоящий домашний быт</div>
+      <div class="tag-pill">жёсткий сон</div>
+      <div class="tag-next">›</div>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="video-grid">
+
+      <div class="video-item">
+        <div class="video-thumb g1">
+          <div class="thumb-inner">🎮</div>
+          <span class="v-hd">4K</span>
+          <span class="v-duration">14:32</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraGaming</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">Валера снова проигрывает в CS:GO — эпичный фейл без купюр</div>
+            <div class="v-views">2,3M просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g2">
+          <div class="thumb-inner">😴</div>
+          <span class="v-hd">HD</span>
+          <span class="v-duration">8:01:23</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraASMR</a> <span class="v-premium-star">★</span></div>
+            <div class="v-title">Валера спит 8 часов — полная запись без монтажа (ASMR 4K)</div>
+            <div class="v-views">47M просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g3">
+          <div class="thumb-inner">🍕</div>
+          <span class="v-ru">RU</span>
+          <span class="v-duration">22:17</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraEats</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">Валера пытается приготовить пиццу — что пошло не так</div>
+            <div class="v-views">876K просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <!-- AD -->
+      <div class="video-item">
+        <div class="video-thumb" style="background:#111; border:1px solid #2a2a2a; flex-direction:column; gap:8px;">
+          <span style="font-size:28px;">👑</span>
+          <span style="font-size:22px; font-weight:900; color:var(--orange);">VALERAHUB</span>
+          <span style="font-size:14px; color:#fff; font-weight:bold;">PREMIUM</span>
+          <span style="font-size:26px; font-weight:900; color:#fff;">$0.00 на 7 дней</span>
+          <span class="v-ad-badge">Ad</span>
+        </div>
+        <div class="remove-ad"><a href="#" style="color:#555; font-size:10px;">Удалить рекламу</a></div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="video-grid">
+
+      <div class="video-item">
+        <div class="video-thumb g4">
+          <div class="thumb-inner">🚗</div>
+          <span class="v-hd">HD</span>
+          <span class="v-duration">22:50</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraLife</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">Валера паркуется 47 раз — жена нашла видео и не может остановить смех</div>
+            <div class="v-views">32,5K просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g5">
+          <div class="thumb-inner">🐱</div>
+          <span class="v-hd">HD</span>
+          <span class="v-duration">25:36</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraHome</a> <span class="v-premium-star">★</span></div>
+            <div class="v-title">Кот Валеры — «Ты можешь присунуть, если хочешь» — он про еду</div>
+            <div class="v-views">38,1M просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g6">
+          <div class="thumb-inner">💼</div>
+          <span class="v-ru">RU</span>
+          <span class="v-duration">5:17</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraWork</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">Лучшие домашние записи Валеры с работы с разговорами</div>
+            <div class="v-views">494K просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g7">
+          <div class="thumb-inner">🛒</div>
+          <span class="v-hd">HD</span>
+          <span class="v-duration">20:43</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraShop</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">Валера заблудился в IKEA — жена пульсирует от злости и сладко злится</div>
+            <div class="v-views">9,1M просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="video-grid">
+
+      <div class="video-item">
+        <div class="video-thumb g8">
+          <div class="thumb-inner">🎤</div>
+          <span class="v-ad-badge">Ad</span>
+          <span class="v-duration">5:12</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraMusic</a></div>
+            <div class="v-title">Выбей свою мелодию — будь-коли, как Валера 🍑🔥</div>
+            <div class="v-views" style="color:#888">Ad · ValeraFans.ai</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g9">
+          <div class="thumb-inner">💻</div>
+          <span class="v-hd">HD</span>
+          <span class="v-duration">78:43</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraTech</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">Валера учит Python — получает 2 ошибки, смотрит в монитор и не кончает разбираться</div>
+            <div class="v-views">236K просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g10">
+          <div class="thumb-inner">🤔</div>
+          <span class="v-hd">HD</span>
+          <span class="v-duration">0:47</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraThinks</a></div>
+            <div class="v-title">Валера думает 47 секунд — жена умоляет о смысле жизни</div>
+            <div class="v-views">26,5K просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb g11">
+          <div class="thumb-inner">💪</div>
+          <span class="v-hd">4K</span>
+          <span class="v-duration">15:12</span>
+        </div>
+        <div class="v-meta">
+          <div class="v-meta-main">
+            <div class="v-author-row"><a href="#" class="v-author">ValeraFit</a> <span class="v-verified">✔</span></div>
+            <div class="v-title">ValeraFIT — Спортивный Валера McKinley берёт и откладывает гантели</div>
+            <div class="v-views">1M просмотров</div>
+          </div>
+          <span class="v-dots">⋮</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+  <div id="footer">
+    <div class="footer-inner">
+      <div class="footer-logo-row">
+        <span class="logo-w">Valera</span><span class="logo-o">hub</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">О нас</a><a href="#">Правила использования</a>
+        <a href="#">Политика конфиденциальности</a><a href="#">DMCA</a>
+        <a href="#">2257</a><a href="#">Для рекламодателей</a>
+        <a href="#">Стать партнёром</a><a href="#">Карьера</a>
+        <a href="#">Обратная связь</a><a href="#">Помощь</a>
+        <a href="#">Родительский контроль</a>
+      </div>
+      <div class="footer-copy">© 2026 ValeraHub Inc. All rights reserved. Все персонажи вымышлены и являются совершеннолетними. 18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement</div>
+    </div>
+  </div>
+
+</div><!-- /site -->
+
+<script>
+function enterSite() {
+  document.getElementById('age-gate').style.display = 'none';
+  document.getElementById('site').style.display = 'block';
+}
+</script>
+</body>
+</html>
