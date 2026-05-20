@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Торговая Палата | Рекомендованные цены АР</title>
+    <title>Schalker | Рекомендованные цены АР</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0e14;
-            --panel-bg: rgba(23, 29, 41, 0.7);
-            --accent-color: #00e5ff;
-            --accent-hover: #00b3cc;
-            --text-main: #f0f4f8;
-            --text-muted: #8da2bb;
-            --diamond-color: #4dedf4;
-            --border-color: rgba(255, 255, 255, 0.05);
+            --bg-color: #0f0a0c; /* Фирменный глубокий темный */
+            --panel-bg: rgba(30, 20, 24, 0.6); /* Полупрозрачные панели */
+            --accent-pink: #d34c75; /* Главный розовый Schalker */
+            --accent-pink-hover: #b03a5e;
+            --accent-blue: #00a8e8; /* Синий для телеграма/инфо */
+            --text-main: #ffffff;
+            --text-muted: #9c8e94;
+            --card-border: rgba(211, 76, 117, 0.15);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
@@ -29,20 +29,20 @@
             color: var(--text-main);
             min-height: 100vh;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 229, 255, 0.05) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(77, 237, 244, 0.03) 0px, transparent 50%);
+                radial-gradient(at 50% 0%, rgba(211, 76, 117, 0.12) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(0, 168, 232, 0.03) 0px, transparent 40%);
             background-attachment: fixed;
         }
 
-        /* Header & Navigation */
+        /* Навигационная панель в стиле Schalker */
         header {
-            background: rgba(11, 14, 20, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(15, 10, 12, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(211, 76, 117, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 15px 20px;
+            padding: 18px 24px;
         }
 
         .header-container {
@@ -52,58 +52,49 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             color: #fff;
+            text-decoration: none;
         }
 
-        .logo i {
-            color: var(--diamond-color);
-            text-shadow: 0 0 10px rgba(77, 237, 244, 0.5);
+        .logo span {
+            color: var(--accent-pink);
         }
 
-        .economy-info {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-        }
-
-        .eco-badge {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 20px;
+        .logo-icon {
+            background: var(--accent-pink);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(211, 76, 117, 0.3);
         }
 
-        .eco-badge strong {
-            color: var(--diamond-color);
-        }
-
-        /* Search Bar */
+        /* Поиск */
         .search-wrapper {
             position: relative;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
         }
 
         .search-wrapper input {
             width: 100%;
-            padding: 10px 15px 10px 40px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 12px 16px 12px 42px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(211, 76, 117, 0.2);
+            border-radius: 10px;
             color: #fff;
             font-size: 14px;
             transition: all 0.3s ease;
@@ -111,155 +102,174 @@
 
         .search-wrapper input:focus {
             outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 15px rgba(211, 76, 117, 0.25);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .search-wrapper i {
             position: absolute;
-            left: 15px;
+            left: 16px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
         }
 
-        /* Main Layout */
+        /* Информационные плашки */
+        .economy-info {
+            display: flex;
+            gap: 15px;
+        }
+
+        .eco-badge {
+            background: rgba(211, 76, 117, 0.07);
+            border: 1px solid rgba(211, 76, 117, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+        }
+
+        .eco-badge strong {
+            color: var(--accent-pink);
+        }
+
+        /* Главный контейнер */
         .main-container {
             max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 40px auto;
+            padding: 0 24px;
             display: grid;
             grid-template-columns: 280px 1fr;
-            gap: 30px;
+            gap: 40px;
         }
 
-        /* Sidebar Navigation */
+        /* Боковое меню сайдбара */
         .sidebar {
             position: sticky;
-            top: 100px;
-            height: calc(100vh - 140px);
+            top: 120px;
+            height: calc(100vh - 160px);
             overflow-y: auto;
-            padding-right: 10px;
         }
 
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
+        .sidebar::-webkit-scrollbar { width: 0px; }
 
         .nav-list {
             list-style: none;
         }
 
         .nav-item button {
-            w_idth: 100%;
             width: 100%;
             background: transparent;
             border: none;
             color: var(--text-muted);
-            padding: 12px 15px;
+            padding: 12px 16px;
             text-align: left;
-            font-size: 15px;
+            font-size: 14px;
+            font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
             transition: all 0.2s ease;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .nav-item button:hover, .nav-item.active button {
-            background: var(--panel-bg);
+            background: rgba(211, 76, 117, 0.1);
             color: #fff;
         }
 
         .nav-item.active button {
-            border-left: 3px solid var(--accent-color);
-            font-weight: 600;
+            color: var(--accent-pink);
+            background: rgba(211, 76, 117, 0.15);
         }
 
-        /* Content Grid */
+        /* Секции предметов */
         .content-area {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 35px;
         }
 
         .category-section {
             background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            backdrop-filter: blur(8px);
-            scroll-margin-top: 100px;
+            border: 1px solid rgba(211, 76, 117, 0.08);
+            border-radius: 16px;
+            padding: 28px;
+            backdrop-filter: blur(12px);
+            scroll-margin-top: 110px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .category-title {
             font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(211, 76, 117, 0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             color: #fff;
+            letter-spacing: -0.3px;
         }
 
         .category-title i {
-            color: var(--accent-color);
+            color: var(--accent-pink);
         }
 
-        /* Items Grid Table */
+        /* Карточки товаров */
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 16px;
         }
 
         .item-card {
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(15, 10, 12, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .item-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(0, 229, 255, 0.2);
-            background: rgba(0, 0, 0, 0.25);
+            transform: translateY(-3px);
+            border-color: rgba(211, 76, 117, 0.3);
+            background: rgba(211, 76, 117, 0.04);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         .item-name {
-            font-weight: 500;
+            font-weight: 600;
             font-size: 14px;
-            color: var(--text-main);
+            color: #e5e1e3;
+            line-height: 1.4;
             max-width: 70%;
         }
 
         .item-price {
-            display: flex;
-            align-items: center;
-            gap: 6px;
             font-weight: 700;
-            color: var(--diamond-color);
-            font-size: 15px;
-            background: rgba(77, 237, 244, 0.07);
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(77, 237, 244, 0.15);
+            color: #fff;
+            font-size: 14px;
+            background: var(--accent-pink);
+            padding: 6px 14px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(211, 76, 117, 0.2);
+            white-space: nowrap;
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
+        /* Адаптивность */
+        @media (max-width: 992px) {
             .main-container {
                 grid-template-columns: 1fr;
             }
@@ -268,10 +278,14 @@
             }
             .header-container {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: fill;
             }
             .search-wrapper {
                 max-width: 100%;
+            }
+            .economy-info {
+                justify-content: space-between;
+                width: 100%;
             }
         }
     </style>
@@ -280,47 +294,45 @@
 
     <header>
         <div class="header-container">
-            <div class="logo">
-                <i class="fa-solid fa-gem"></i> Цены рынка (АР)
-            </div>
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-box"></i></div>
+                Schalker<span>.</span>
+            </a>
             
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Поиск предмета или чара..." oninput="filterItems()">
+                <input type="text" id="searchInput" placeholder="Поиск по названию или чарам..." oninput="filterItems()">
             </div>
 
             <div class="economy-info">
                 <div class="eco-badge">
-                    <i class="fa-solid fa-clock"></i> Пассивный доход: <strong>~5 АР / ч</strong>
+                    <i class="fa-solid fa-bolt"></i> Доход: <strong>~5 АР / час</strong>
                 </div>
                 <div class="eco-badge">
-                    <i class="fa-solid fa-calculator"></i> Курс: <strong>1 АР = 1 Алм. руда</strong>
+                    <i class="fa-solid fa-gem"></i> Курс: <strong>1 АР = 1 Руда</strong>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="main-container">
-        <!-- Боковое меню -->
         <aside class="sidebar">
             <ul class="nav-list">
                 <li class="nav-item active"><button onclick="scrollToSection('important')"><i class="fa-solid fa-star"></i> Важное & Блоки</button></li>
                 <li class="nav-item"><button onclick="scrollToSection('books')"><i class="fa-solid fa-book"></i> Книги чар</button></li>
                 <li class="nav-item"><button onclick="scrollToSection('gear')"><i class="fa-solid fa-shield-halved"></i> Снаряжение</button></li>
-                <li class="nav-item"><button onclick="scrollToSection('templates')"><i class="fa-solid fa-hammer"></i> Шаблоны</button></li>
-                <li class="nav-item"><button onclick="scrollToSection('building')"><i class="fa-solid fa-trowel-bricks"></i> Стройматериалы</button></li>
-                <li class="nav-item"><button onclick="scrollToSection('resources')"><i class="fa-solid fa-cubes"></i> Чистые ресурсы</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('templates')"><i class="fa-solid fa-screwdriver-wrench"></i> Шаблоны</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('building')"><i class="fa-solid fa-cubes"></i> Стройматериалы</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('resources')"><i class="fa-solid fa-gem"></i> Чистые ресурсы</button></li>
                 <li class="nav-item"><button onclick="scrollToSection('alchemy')"><i class="fa-solid fa-flask"></i> Алхимия & Растения</button></li>
-                <li class="nav-item"><button onclick="scrollToSection('food')"><i class="fa-solid fa-apple-whole"></i> Еда</button></li>
-                <li class="nav-item"><button onclick="scrollToSection('pvp')"><i class="fa-solid fa-jet-fighter"></i> PvP & Мувмент</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('food')"><i class="fa-solid fa-carrot"></i> Еда</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('pvp')"><i class="fa-solid fa-crosshairs"></i> PvP & Мувмент</button></li>
                 <li class="nav-item"><button onclick="scrollToSection('music')"><i class="fa-solid fa-compact-disc"></i> Пластинки</button></li>
             </ul>
         </aside>
 
-        <!-- Основной контент -->
         <main class="content-area" id="contentArea">
 
-            <!-- ВАЖНЫЕ ПРЕДМЕТЫ -->
             <section class="category-section" id="important">
                 <div class="category-title"><i class="fa-solid fa-star"></i> Важные предметы & Блоки</div>
                 <div class="items-grid">
@@ -338,7 +350,6 @@
                 </div>
             </section>
 
-            <!-- КНИГИ ЧАР -->
             <section class="category-section" id="books">
                 <div class="category-title"><i class="fa-solid fa-book"></i> Книги чар</div>
                 <div class="items-grid">
@@ -385,11 +396,10 @@
                 </div>
             </section>
 
-            <!-- СНАРЯЖЕНИЕ -->
             <section class="category-section" id="gear">
                 <div class="category-title"><i class="fa-solid fa-shield-halved"></i> Снаряжение и Инструменты</div>
                 <div class="items-grid">
-                    <div class="item-card"><span class="item-name">Незеритовый меч (Топ зачар без починки)</span><span class="item-price">90 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый меч (Фулл зачар без починки)</span><span class="item-price">90 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовый нагрудник (Топ зачар)</span><span class="item-price">86 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовые ботинки (Топ зачар)</span><span class="item-price">80 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовый шлем (Топ зачар)</span><span class="item-price">65 АР</span></div>
@@ -398,7 +408,6 @@
                     <div class="item-card"><span class="item-name">Лук фулл зачар</span><span class="item-price">10 АР</span></div>
                     <div class="item-card"><span class="item-name">Удочка фулл зачар</span><span class="item-price">10 АР</span></div>
                     <div class="item-card"><span class="item-name">Алмазная кирка (Топ зачар без починки)</span><span class="item-price">15 АР</span></div>
-                    <!-- Чистая незеритка -->
                     <div class="item-card"><span class="item-name">Незеритовый нагрудник (Чистый)</span><span class="item-price">29 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовые поножи (Чистые)</span><span class="item-price">28 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовый шлем (Чистый)</span><span class="item-price">26 АР</span></div>
@@ -408,7 +417,6 @@
                     <div class="item-card"><span class="item-name">Незеритовый топор (Чистый)</span><span class="item-price">24 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовая лопата (Чистая)</span><span class="item-price">22 АР</span></div>
                     <div class="item-card"><span class="item-name">Незеритовая мотыга (Чистая)</span><span class="item-price">22 АР</span></div>
-                    <!-- Алмаз -->
                     <div class="item-card"><span class="item-name">Алмазный нагрудник</span><span class="item-price">3 АР</span></div>
                     <div class="item-card"><span class="item-name">Алмазные поножи</span><span class="item-price">3 АР</span></div>
                     <div class="item-card"><span class="item-name">Алмазный шлем</span><span class="item-price">2 АР</span></div>
@@ -416,9 +424,8 @@
                 </div>
             </section>
 
-            <!-- ШАБЛОНЫ -->
             <section class="category-section" id="templates">
-                <div class="category-title"><i class="fa-solid fa-hammer"></i> Кузнечные шаблоны</div>
+                <div class="category-title"><i class="fa-solid fa-screwdriver-wrench"></i> Кузнечные шаблоны</div>
                 <div class="items-grid">
                     <div class="item-card"><span class="item-name">Незеритовое улучшение</span><span class="item-price">7 АР</span></div>
                     <div class="item-card"><span class="item-name">Отделка «Прилив»</span><span class="item-price">15 АР</span></div>
@@ -442,30 +449,27 @@
                 </div>
             </section>
 
-            <!-- СТРОЙМАТЕРИАЛЫ -->
             <section class="category-section" id="building">
-                <div class="category-title"><i class="fa-solid fa-trowel-bricks"></i> Строительные блоки & Стройматериалы (по 64 шт.)</div>
+                <div class="category-title"><i class="fa-solid fa-cubes"></i> Строительные блоки & Материалы (по 64 шт.)</div>
                 <div class="items-grid">
                     <div class="item-card"><span class="item-name">Мангровое бревно</span><span class="item-price">8 АР</span></div>
                     <div class="item-card"><span class="item-name">Блок бамбука</span><span class="item-price">8 АР</span></div>
                     <div class="item-card"><span class="item-name">Бревна (все типы)</span><span class="item-price">6 АР</span></div>
                     <div class="item-card"><span class="item-name">Бамбуковые доски</span><span class="item-price">4 АР</span></div>
-                    <div class="item-card"><span class="item-name">Все типы досок</span><span class="item-price">2 АР</span></div>
-                    <div class="item-card"><span class="item-name">Вся листва</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Все типы досок / Листва</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Резная книжная полка</span><span class="item-price">4 АР</span></div>
                     <div class="item-card"><span class="item-name">Книжная полка</span><span class="item-price">18 АР</span></div>
-                    <div class="item-card"><span class="item-name">Бледный мох</span><span class="item-price">2 АР</span></div>
-                    <div class="item-card"><span class="item-name">Блок мха</span><span class="item-price">2 АР</span></div>
-                    <div class="item-card"><span class="item-name">Земля / Дерн</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Бледный мох / Блок мха</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Земля / Дерн / Песок</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Глина / Гравий / Стекло</span><span class="item-price">4 АР</span></div>
-                    <div class="item-card"><span class="item-name">Песок / Песчаник</span><span class="item-price">2 / 4 АР</span></div>
-                    <div class="item-card"><span class="item-name">Красный песок / песчаник</span><span class="item-price">4 / 8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Песчаник / Красный песок</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Красный песчаник</span><span class="item-price">8 АР</span></div>
                     <div class="item-card"><span class="item-name">Булыжник / Камень</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Замшелый камень</span><span class="item-price">4 АР</span></div>
                     <div class="item-card"><span class="item-name">Туф / Глубинный сланец</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Андезит / Диорит / Гранит</span><span class="item-price">4 АР</span></div>
                     <div class="item-card"><span class="item-name">Кальцит</span><span class="item-price">10 АР</span></div>
-                    <div class="item-card"><span class="item-name">Аметист блочный</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Аметист (64 шт.)</span><span class="item-price">8 АР</span></div>
                     <div class="item-card"><span class="item-name">Терракота / Бетон</span><span class="item-price">4 АР</span></div>
                     <div class="item-card"><span class="item-name">Глазурованная керамика</span><span class="item-price">6 АР</span></div>
                     <div class="item-card"><span class="item-name">Призмарин / Медный блок</span><span class="item-price">4 АР</span></div>
@@ -475,9 +479,8 @@
                 </div>
             </section>
 
-            <!-- ЧИСТЫЕ РЕСУРСЫ -->
             <section class="category-section" id="resources">
-                <div class="category-title"><i class="fa-solid fa-cubes"></i> Чистые ресурсы</div>
+                <div class="category-title"><i class="fa-solid fa-gem"></i> Чистые ресурсы</div>
                 <div class="items-grid">
                     <div class="item-card"><span class="item-name">Алмазный блок (16 шт.)</span><span class="item-price">48 АР</span></div>
                     <div class="item-card"><span class="item-name">Золотой блок (64 шт.)</span><span class="item-price">24 АР</span></div>
@@ -494,7 +497,6 @@
                 </div>
             </section>
 
-            <!-- АЛХИМИЯ -->
             <section class="category-section" id="alchemy">
                 <div class="category-title"><i class="fa-solid fa-flask"></i> Зелья, Растения & Алхимия</div>
                 <div class="items-grid">
@@ -503,9 +505,9 @@
                     <div class="item-card"><span class="item-name">Цветок хоруса (64 шт.)</span><span class="item-price">10 АР</span></div>
                     <div class="item-card"><span class="item-name">Факельник / Кувшинница (64 шт.)</span><span class="item-price">4 АР</span></div>
                     <div class="item-card"><span class="item-name">Любой цветок (64 шт.)</span><span class="item-price">2 АР</span></div>
-                    <div class="item-card"><span class="item-name">Зелье черепашьей мощи IV</span><span class="item-price">7 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье черепашьей мощи 4 ур.</span><span class="item-price">7 АР</span></div>
                     <div class="item-card"><span class="item-name">Зелье силы / невидимости</span><span class="item-price">3 АР</span></div>
-                    <div class="item-card"><span class="item-name">Зелье огнестойкости / ноч. зрения</span><span class="item-price">1 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье огнестойкости / ночного зрения</span><span class="item-price">1 АР</span></div>
                     <div class="item-card"><span class="item-name">Зелье прыгучести / стремительности / регена</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Зелье опыта (1 шт.)</span><span class="item-price">1 АР</span></div>
                     <div class="item-card"><span class="item-name">Слеза гаста (32 шт.)</span><span class="item-price">12 АР</span></div>
@@ -518,27 +520,25 @@
                 </div>
             </section>
 
-            <!-- ЕДА -->
             <section class="category-section" id="food">
-                <div class="category-title"><i class="fa-solid fa-apple-whole"></i> Еда</div>
+                <div class="category-title"><i class="fa-solid fa-carrot"></i> Еда</div>
                 <div class="items-grid">
                     <div class="item-card"><span class="item-name">Золотое яблоко (16 шт.)</span><span class="item-price">8 АР</span></div>
-                    <div class="item-card"><span class="item-name">Зачар. золотое яблоко (1 шт.)</span><span class="item-price">9 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зачарованное золотое яблоко (1 шт.)</span><span class="item-price">9 АР</span></div>
                     <div class="item-card"><span class="item-name">Яблоко (64 шт.)</span><span class="item-price">8 АР</span></div>
                     <div class="item-card"><span class="item-name">Морковь / Ломтик арбуза (64 шт.)</span><span class="item-price">4 АР</span></div>
                     <div class="item-card"><span class="item-name">Золотая морковь (64 шт.)</span><span class="item-price">5 АР</span></div>
-                    <div class="item-card"><span class="item-name">Арбуз блок (64 шт.)</span><span class="item-price">8 АР</span></div>
-                    <div class="item-card"><span class="item-name">Сырое мясо / рыба (64 шт.)</span><span class="item-price">4 АР</span></div>
-                    <div class="item-card"><span class="item-name">Жареное мясо / рыба (64 шт.)</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Арбуз (64 шт.)</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Сырое мясо / Любая рыба (64 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Жареное мясо / Рыба (64 шт.)</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Печенье (64 шт.)</span><span class="item-price">6 АР</span></div>
                     <div class="item-card"><span class="item-name">Хлеб (64 шт.)</span><span class="item-price">2 АР</span></div>
                     <div class="item-card"><span class="item-name">Сахарный тростник (64 шт.)</span><span class="item-price">1 АР</span></div>
                 </div>
             </section>
 
-            <!-- PVP -->
             <section class="category-section" id="pvp">
-                <div class="category-title"><i class="fa-solid fa-jet-fighter"></i> PvP & Мувмент</div>
+                <div class="category-title"><i class="fa-solid fa-crosshairs"></i> PvP & Мувмент</div>
                 <div class="items-grid">
                     <div class="item-card"><span class="item-name">Кристалл Края (16 шт.)</span><span class="item-price">16 АР</span></div>
                     <div class="item-card"><span class="item-name">Динамит (64 шт.)</span><span class="item-price">18 АР</span></div>
@@ -552,7 +552,6 @@
                 </div>
             </section>
 
-            <!-- ПЛАСТИНКИ -->
             <section class="category-section" id="music">
                 <div class="category-title"><i class="fa-solid fa-compact-disc"></i> Редкие музыкальные пластинки</div>
                 <div class="items-grid">
@@ -567,19 +566,18 @@
     </div>
 
     <script>
-        // Плавный скролл к секциям
+        // Удобный переход по разделам
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
                 
-                // Обновление активного класса в меню
                 document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
                 event.currentTarget.parentElement.classList.add('active');
             }
         }
 
-        // Динамический фильтр/поиск предметов
+        // Логика быстрого поиска
         function filterItems() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.item-card');
@@ -594,7 +592,6 @@
                 }
             });
 
-            // Прятать пустые секции при поиске
             sections.forEach(section => {
                 const visibleCards = section.querySelectorAll('.item-card[style="display: flex;"]');
                 const totalCards = section.querySelectorAll('.item-card');
