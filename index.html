@@ -1,607 +1,611 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValeraHub - The World's Biggest Valera Site</title>
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Торговая Палата | Рекомендованные цены АР</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0e14;
+            --panel-bg: rgba(23, 29, 41, 0.7);
+            --accent-color: #00e5ff;
+            --accent-hover: #00b3cc;
+            --text-main: #f0f4f8;
+            --text-muted: #8da2bb;
+            --diamond-color: #4dedf4;
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
 
-:root {
-  --orange: #ff9000;
-  --bg: #000;
-  --dark: #0a0a0a;
-  --nav-bg: #0a0a0a;
-  --text: #fff;
-  --muted: #979797;
-  --card-bg: #111;
-  --border: #1e1e1e;
-  --radius: 10px;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-body { background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
-a { text-decoration: none; color: inherit; cursor: pointer; }
-button { cursor: pointer; font-family: Arial, Helvetica, sans-serif; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 229, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(77, 237, 244, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
 
-/* ═══════════════════════════════════
-   AGE GATE
-═══════════════════════════════════ */
-#age-gate {
-  position: fixed; inset: 0; background: #000;
-  display: flex; align-items: center; justify-content: center;
-  z-index: 9999;
-}
-.age-box {
-  background: #000; border: 1px solid #1e1e1e; border-radius: 18px;
-  width: 600px; max-width: 95vw; padding: 40px 50px;
-  text-align: center;
-}
-.age-lang {
-  position: absolute; top: 20px; left: 20px;
-  background: #111; border: 1px solid #222; border-radius: 10px;
-  padding: 5px 10px; color: #ccc; font-size: 12px; display: flex; align-items: center; gap: 6px;
-}
+        /* Header & Navigation */
+        header {
+            background: rgba(11, 14, 20, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 20px;
+        }
 
-.age-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 24px; gap: 0; }
-.age-logo-w {
-  background: #000; color: #fff; font-weight: 900; font-size: 22px;
-  padding: 5px 10px; border-radius: 8px 0 0 8px; letter-spacing: -0.5px;
-  border: 2px solid #fff; border-right: none;
-}
-.age-logo-o {
-  background: var(--orange); color: #000; font-weight: 900; font-size: 22px;
-  padding: 5px 10px; border-radius: 0 8px 8px 0; letter-spacing: -0.5px;
-}
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-.age-title { font-size: 30px; font-weight: bold; color: #fff; margin-bottom: 18px; }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #fff;
+        }
 
-.age-notice-btn {
-  display: inline-block; border: 1px solid var(--orange);
-  color: var(--orange); padding: 6px 18px; border-radius: 20px;
-  font-size: 12px; font-weight: bold; margin-bottom: 20px;
-}
-.age-notice-btn:hover { background: var(--orange); color: #000; }
+        .logo i {
+            color: var(--diamond-color);
+            text-shadow: 0 0 10px rgba(77, 237, 244, 0.5);
+        }
 
-.age-text { font-size: 13px; color: #ccc; line-height: 1.7; margin-bottom: 8px; }
-.age-link { color: var(--orange); }
-.age-link:hover { text-decoration: underline; }
+        .economy-info {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
 
-.age-btns { display: flex; gap: 16px; margin: 28px 0 20px; }
-.age-btn-enter {
-  flex: 1; padding: 14px; border: 2px solid var(--orange);
-  background: transparent; color: #fff; font-size: 15px; font-weight: bold; border-radius: 12px;
-}
-.age-btn-enter:hover { background: var(--orange); color: #000; }
-.age-btn-exit {
-  flex: 1; padding: 14px; border: 2px solid #333;
-  background: transparent; color: #fff; font-size: 15px; font-weight: bold; border-radius: 12px;
-}
-.age-btn-exit:hover { border-color: #666; }
+        .eco-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.age-parental { font-size: 12px; color: #666; margin-bottom: 6px; }
-.age-footer { font-size: 12px; color: #444; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.rta-badge { background: #fff; color: #000; font-weight: 900; font-size: 13px; padding: 2px 5px; border-radius: 4px; }
+        .eco-badge strong {
+            color: var(--diamond-color);
+        }
 
-/* ═══════════════════════════════════
-   MAIN SITE (hidden until age gate passes)
-═══════════════════════════════════ */
-#site { display: none; background: #000; min-height: 100vh; }
+        /* Search Bar */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
 
-/* TOP BAR */
-#topbar {
-  background: #000; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  border-bottom: 1px solid #111; gap: 28px;
-}
-#topbar a { font-size: 11px; color: #666; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
-#topbar a:hover { color: #fff; }
+        .search-wrapper input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
 
-/* HEADER */
-#header {
-  background: #000; height: 60px;
-  display: flex; align-items: center;
-  padding: 0 20px; gap: 14px;
-  border-bottom: 1px solid #111;
-}
-.menu-btn { background: none; border: none; color: var(--orange); font-size: 20px; padding: 4px; }
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+        }
 
-.logo { display: flex; align-items: center; flex-shrink: 0; gap: 0; }
-.logo-w {
-  background: #000; color: #fff; font-weight: 900; font-size: 18px;
-  padding: 4px 8px; border-radius: 8px 0 0 8px; letter-spacing: -0.5px;
-  border: 2px solid #fff; border-right: none;
-}
-.logo-o {
-  background: var(--orange); color: #000; font-weight: 900; font-size: 18px;
-  padding: 4px 8px; border-radius: 0 8px 8px 0; letter-spacing: -0.5px;
-}
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
 
-.search-wrap { flex: 1; display: flex; max-width: 640px; margin: 0 auto; }
-.search-wrap input {
-  flex: 1; height: 38px; background: #111; border: 1px solid #222; border-right: none;
-  border-radius: 20px 0 0 20px; padding: 0 18px; font-size: 13px; color: #fff; outline: none;
-}
-.search-wrap input::placeholder { color: #555; }
-.search-wrap input:focus { border-color: #444; }
-.search-wrap button {
-  height: 38px; width: 54px; background: var(--orange);
-  border: none; border-radius: 0 20px 20px 0; font-size: 16px; display: flex; align-items: center; justify-content: center;
-}
-.search-wrap button:hover { background: #ffaa00; }
+        /* Main Layout */
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
 
-.header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-.icon-btn { background: none; border: none; color: #fff; font-size: 18px; padding: 4px; opacity: 0.7; }
-.icon-btn:hover { opacity: 1; }
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
 
-.btn-sex {
-  background: var(--orange); border: none; border-radius: 20px;
-  padding: 7px 18px; color: #000; font-size: 12px; font-weight: bold;
-}
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
 
-/* MAIN NAV */
-#main-nav {
-  background: #000; border-bottom: 1px solid #111;
-  display: flex; align-items: stretch; height: 44px;
-  padding: 0 16px; gap: 0; overflow-x: auto; scrollbar-width: none;
-}
-#main-nav::-webkit-scrollbar { display: none; }
-.nav-item {
-  display: flex; align-items: center; gap: 5px;
-  padding: 0 16px; height: 100%; font-size: 13px; font-weight: bold; color: #777;
-  border-bottom: 3px solid transparent; white-space: nowrap; flex-shrink: 0;
-  transition: color 0.15s;
-}
-.nav-item:hover { color: #fff; }
-.nav-item.active { color: #fff; border-bottom-color: var(--orange); }
-.nav-item .arrow { font-size: 9px; color: #555; }
+        .nav-list {
+            list-style: none;
+        }
 
-/* PROMO STRIP */
-#promo-strip {
-  background: #000; text-align: center; padding: 8px;
-  font-size: 12px; color: #777; border-bottom: 1px solid #111;
-}
-#promo-strip a { color: var(--orange); }
-#promo-strip a:hover { text-decoration: underline; }
+        .nav-item button {
+            w_idth: 100%;
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            margin-bottom: 5px;
+        }
 
-/* CONTENT */
-#content { max-width: 1200px; margin: 0 auto; padding: 18px 20px; background: #000; }
+        .nav-item button:hover, .nav-item.active button {
+            background: var(--panel-bg);
+            color: #fff;
+        }
 
-/* SECTION TITLE */
-.section-title-row {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 14px; margin-top: 4px;
-}
-.section-title-text { font-size: 17px; font-weight: bold; color: #fff; }
+        .nav-item.active button {
+            border-left: 3px solid var(--accent-color);
+            font-weight: 600;
+        }
 
-/* TAGS ROW */
-.tags-row {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 22px;
-  overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap;
-}
-.tags-row::-webkit-scrollbar { display: none; }
-.tag-pill {
-  flex-shrink: 0; padding: 7px 16px; background: #111; border-radius: 20px;
-  font-size: 12px; color: #bbb; border: 1px solid #222; white-space: nowrap;
-  transition: all 0.15s;
-}
-.tag-pill:hover { background: #1e1e1e; color: #fff; border-color: #333; }
-.tag-next { flex-shrink: 0; padding: 7px 14px; background: #111; border-radius: 20px; border: 1px solid #222; color: #bbb; font-size: 13px; }
+        /* Content Grid */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
 
-/* VIDEO GRID */
-.video-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 14px; margin-bottom: 30px; }
+        .category-section {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            backdrop-filter: blur(8px);
+            scroll-margin-top: 100px;
+        }
 
-.video-item { cursor: pointer; }
-.video-thumb {
-  position: relative; width: 100%; aspect-ratio: 16/9;
-  border-radius: 10px; overflow: hidden; margin-bottom: 8px;
-  background: #111; display: flex; align-items: center; justify-content: center;
-}
-.thumb-inner {
-  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-  font-size: 44px; transition: transform 0.3s;
-}
-.video-item:hover .thumb-inner { transform: scale(1.08); }
+        .category-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
 
-.v-duration {
-  position: absolute; bottom: 7px; right: 7px;
-  background: rgba(0,0,0,0.85); color: #fff; font-size: 11px; font-weight: bold;
-  padding: 2px 6px; border-radius: 6px;
-}
-.v-hd {
-  position: absolute; bottom: 7px; left: 7px;
-  background: rgba(0,0,0,0.7); color: #fff; font-size: 9px; font-weight: bold;
-  padding: 2px 5px; border-radius: 5px; letter-spacing: 0.5px;
-}
-.v-ru {
-  position: absolute; bottom: 7px; left: 7px;
-  background: #c0392b; color: #fff; font-size: 9px; font-weight: bold;
-  padding: 2px 5px; border-radius: 5px;
-}
-.v-ad-badge {
-  position: absolute; top: 7px; left: 7px;
-  background: rgba(0,0,0,0.7); color: #fff; font-size: 9px;
-  padding: 2px 5px; border-radius: 5px;
-}
+        .category-title i {
+            color: var(--accent-color);
+        }
 
-.v-meta { display: flex; align-items: flex-start; gap: 8px; }
-.v-meta-main { flex: 1; min-width: 0; }
-.v-author-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
-.v-author { font-size: 11px; color: #ccc; font-weight: bold; }
-.v-author:hover { color: var(--orange); }
-.v-verified { color: #4a90d9; font-size: 10px; }
-.v-premium-star { color: var(--orange); font-size: 10px; }
-.v-title { font-size: 12px; color: #ccc; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 3px; }
-.video-item:hover .v-title { color: var(--orange); }
-.v-views { font-size: 11px; color: #888; }
-.v-dots { color: #777; font-size: 16px; flex-shrink: 0; padding-top: 2px; }
-.v-dots:hover { color: #fff; }
+        /* Items Grid Table */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
 
-/* AD BLOCK */
-.ad-block {
-  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  aspect-ratio: 16/9; font-size: 12px; color: #555;
-  flex-direction: column; gap: 4px;
-}
-.ad-block .ad-label { font-size: 10px; color: #444; }
-.remove-ad { font-size: 10px; color: #555; text-align: right; margin-top: 4px; }
-.remove-ad:hover { color: #999; }
+        .item-card {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
 
-/* THUMB GRADIENTS — darker for pure black feel */
-.g1 { background: linear-gradient(160deg,#050d1f,#0d1f4a); }
-.g2 { background: linear-gradient(160deg,#1f0505,#4a0d0d); }
-.g3 { background: linear-gradient(160deg,#051f0a,#0d4a1a); }
-.g4 { background: linear-gradient(160deg,#1f1505,#4a300d); }
-.g5 { background: linear-gradient(160deg,#150521,#300d4a); }
-.g6 { background: linear-gradient(160deg,#05151f,#0d304a); }
-.g7 { background: linear-gradient(160deg,#1f0515,#4a0d30); }
-.g8 { background: linear-gradient(160deg,#0d1f05,#1f4a0d); }
-.g9 { background: linear-gradient(160deg,#1f1f05,#3a3a0d); }
-.g10 { background: linear-gradient(160deg,#0d0d1f,#151555); }
-.g11 { background: linear-gradient(160deg,#1f0d05,#4a2510); }
-.g12 { background: linear-gradient(160deg,#051f1f,#0d4a4a); }
+        .item-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 229, 255, 0.2);
+            background: rgba(0, 0, 0, 0.25);
+        }
 
-/* FOOTER */
-#footer { background: #000; border-top: 1px solid #111; padding: 26px 20px; margin-top: 10px; }
-.footer-inner { max-width: 1200px; margin: 0 auto; }
-.footer-logo-row { display: flex; align-items: center; gap: 0; margin-bottom: 18px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 12px; }
-.footer-links a { font-size: 11px; color: #444; padding: 0 10px; border-right: 1px solid #1a1a1a; line-height: 1.8; }
-.footer-links a:first-child { padding-left: 0; }
-.footer-links a:hover { color: #aaa; }
-.footer-copy { font-size: 11px; color: #2a2a2a; margin-top: 10px; }
-</style>
+        .item-name {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-main);
+            max-width: 70%;
+        }
+
+        .item-price {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            color: var(--diamond-color);
+            font-size: 15px;
+            background: rgba(77, 237, 244, 0.07);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(77, 237, 244, 0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ═══ AGE GATE ═══ -->
-<div id="age-gate">
-  <div class="age-lang">🌐 Russian ▾</div>
-  <div class="age-box">
-    <div class="age-logo">
-      <span class="age-logo-w">Valera</span><span class="age-logo-o">hub</span>
-    </div>
-    <div class="age-title">Это сайт для взрослых</div>
-    <a href="#" class="age-notice-btn">Notice to Users</a>
-    <p class="age-text">
-      Данный сайт содержит материалы с возрастными ограничениями, включая
-      неловкие сцены бытового характера. Входя на сайт, вы подтверждаете,
-      что вам исполнилось 18 лет или вы достигли совершеннолетия в той юрисдикции,
-      из которой вы заходите на сайт, и даёте согласие на просмотр
-      контента с Валерой.<br><br>
-      <a href="#" class="age-link">Уведомление для правоохранительных органов</a>
-    </p>
-    <div class="age-btns">
-      <button class="age-btn-enter" onclick="enterSite()">Мне 18 лет и более — Вход</button>
-      <button class="age-btn-exit" onclick="alert('Удачи без Валеры 😔')">Мне нет 18 лет — Выход</button>
-    </div>
-    <p class="age-parental">
-      На нашей <a href="#" class="age-link">странице родительского контроля</a> описано,
-      как можно легко заблокировать доступ к этому сайту.<br>
-      <a href="#" class="age-link">новыми Условиями обслуживания</a>
-    </p>
-    <div class="age-footer">
-      <span>© ValeraHub.com, 2026</span>
-      <span class="rta-badge">RTA®</span>
-    </div>
-  </div>
-</div>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fa-solid fa-gem"></i> Цены рынка (АР)
+            </div>
+            
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Поиск предмета или чара..." oninput="filterItems()">
+            </div>
 
-<!-- ═══ MAIN SITE ═══ -->
-<div id="site">
+            <div class="economy-info">
+                <div class="eco-badge">
+                    <i class="fa-solid fa-clock"></i> Пассивный доход: <strong>~5 АР / ч</strong>
+                </div>
+                <div class="eco-badge">
+                    <i class="fa-solid fa-calculator"></i> Курс: <strong>1 АР = 1 Алм. руда</strong>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <!-- TOP BAR -->
-  <div id="topbar">
-    <a href="#">МЕМЫ</a>
-    <a href="#">ФАНЦЕНТР</a>
-    <a href="#">МАГАЗИН ВАЛЕРЫ</a>
-    <a href="#">ИНСАЙТЫ</a>
-    <a href="#">САЙТЫ</a>
-    <a href="#">ДОВЕРИЕ И БЕЗОПАСНОСТЬ</a>
-    <a href="#">RU</a>
-  </div>
+    <div class="main-container">
+        <!-- Боковое меню -->
+        <aside class="sidebar">
+            <ul class="nav-list">
+                <li class="nav-item active"><button onclick="scrollToSection('important')"><i class="fa-solid fa-star"></i> Важное & Блоки</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('books')"><i class="fa-solid fa-book"></i> Книги чар</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('gear')"><i class="fa-solid fa-shield-halved"></i> Снаряжение</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('templates')"><i class="fa-solid fa-hammer"></i> Шаблоны</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('building')"><i class="fa-solid fa-trowel-bricks"></i> Стройматериалы</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('resources')"><i class="fa-solid fa-cubes"></i> Чистые ресурсы</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('alchemy')"><i class="fa-solid fa-flask"></i> Алхимия & Растения</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('food')"><i class="fa-solid fa-apple-whole"></i> Еда</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('pvp')"><i class="fa-solid fa-jet-fighter"></i> PvP & Мувмент</button></li>
+                <li class="nav-item"><button onclick="scrollToSection('music')"><i class="fa-solid fa-compact-disc"></i> Пластинки</button></li>
+            </ul>
+        </aside>
 
-  <!-- HEADER -->
-  <div id="header">
-    <button class="menu-btn">☰</button>
-    <a href="#" class="logo"><span class="logo-w">Valera</span><span class="logo-o">hub</span></a>
-    <div class="search-wrap">
-      <input type="text" placeholder="Изучить Валерахаб">
-      <button>🔍</button>
-    </div>
-    <div class="header-right">
-      <button class="btn-sex">Валера 3Ш</button>
-      <button class="icon-btn">📹</button>
-      <button class="icon-btn">📸</button>
-      <button class="icon-btn">👤</button>
-    </div>
-  </div>
+        <!-- Основной контент -->
+        <main class="content-area" id="contentArea">
 
-  <!-- MAIN NAV -->
-  <div id="main-nav">
-    <a href="#" class="nav-item active">ГЛАВНАЯ СТРАНИЦА</a>
-    <a href="#" class="nav-item">ВИДЕО <span class="arrow">▾</span></a>
-    <a href="#" class="nav-item">КАТЕГОРИИ <span class="arrow">▾</span></a>
-    <a href="#" class="nav-item">LIVE CAMS <span class="arrow">▾</span></a>
-    <a href="#" class="nav-item">ВАЛЕРОЗВЁЗДЫ <span class="arrow">▾</span></a>
-    <a href="#" class="nav-item">FUCK NOW</a>
-    <a href="#" class="nav-item">СООБЩЕСТВО <span class="arrow">▾</span></a>
-    <a href="#" class="nav-item">ФОТО И ГИФКИ <span class="arrow">▾</span></a>
-  </div>
+            <!-- ВАЖНЫЕ ПРЕДМЕТЫ -->
+            <section class="category-section" id="important">
+                <div class="category-title"><i class="fa-solid fa-star"></i> Важные предметы & Блоки</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Элитры</span><span class="item-price">1500 АР</span></div>
+                    <div class="item-card"><span class="item-name">Сердце моря (1 шт.)</span><span class="item-price">64 АР</span></div>
+                    <div class="item-card"><span class="item-name">Маяк</span><span class="item-price">50 АР</span></div>
+                    <div class="item-card"><span class="item-name">Череп скелета-иссушителя (1 шт.)</span><span class="item-price">20 АР</span></div>
+                    <div class="item-card"><span class="item-name">Булава</span><span class="item-price">16 АР</span></div>
+                    <div class="item-card"><span class="item-name">Шалкер / Панцирь (16 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Тотем бессмертия (1 шт.)</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Ключ испытаний</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зловещий ключ испытаний</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Яйцо нюхача</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Стержень энда (16 шт.)</span><span class="item-price">4 АР</span></div>
+                </div>
+            </section>
 
-  <!-- PROMO STRIP -->
-  <div id="promo-strip">
-    Подними свой досуг на новый уровень с <a href="#">товарами ValeraHub</a>, доступно сейчас!
-  </div>
+            <!-- КНИГИ ЧАР -->
+            <section class="category-section" id="books">
+                <div class="category-title"><i class="fa-solid fa-book"></i> Книги чар</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Проворство III</span><span class="item-price">500 АР</span></div>
+                    <div class="item-card"><span class="item-name">Починка</span><span class="item-price">200 АР</span></div>
+                    <div class="item-card"><span class="item-name">Порыв ветра III</span><span class="item-price">100 АР</span></div>
+                    <div class="item-card"><span class="item-name">Шипы III</span><span class="item-price">25 АР</span></div>
+                    <div class="item-card"><span class="item-name">Невесомость IV</span><span class="item-price">25 АР</span></div>
+                    <div class="item-card"><span class="item-name">Тягун III</span><span class="item-price">23 АР</span></div>
+                    <div class="item-card"><span class="item-name">Острота V</span><span class="item-price">22 АР</span></div>
+                    <div class="item-card"><span class="item-name">Добыча III</span><span class="item-price">21 АР</span></div>
+                    <div class="item-card"><span class="item-name">Плотность V</span><span class="item-price">20 АР</span></div>
+                    <div class="item-card"><span class="item-name">Пробитие IV</span><span class="item-price">18 АР</span></div>
+                    <div class="item-card"><span class="item-name">Защита IV</span><span class="item-price">16 АР</span></div>
+                    <div class="item-card"><span class="item-name">Прочность III</span><span class="item-price">16 АР</span></div>
+                    <div class="item-card"><span class="item-name">Разящий клинок III</span><span class="item-price">16 АР</span></div>
+                    <div class="item-card"><span class="item-name">Скорость души III</span><span class="item-price">15 АР</span></div>
+                    <div class="item-card"><span class="item-name">Эффективность V</span><span class="item-price">15 АР</span></div>
+                    <div class="item-card"><span class="item-name">Шёлковое касание</span><span class="item-price">14 АР</span></div>
+                    <div class="item-card"><span class="item-name">Подводная ходьба III</span><span class="item-price">14 АР</span></div>
+                    <div class="item-card"><span class="item-name">Сила V</span><span class="item-price">12 АР</span></div>
+                    <div class="item-card"><span class="item-name">Верность III</span><span class="item-price">11 АР</span></div>
+                    <div class="item-card"><span class="item-name">Удача III</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Взрывоустойчивость IV</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Заговор огня II</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Ледоход II</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Подводное дыхание III</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Громовержец</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Бесконечность</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Огнеупорность IV</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отдача II</span><span class="item-price">9 АР</span></div>
+                    <div class="item-card"><span class="item-name">Защита от снарядов IV</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Везучий рыбак III</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Подводник</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Приманка III</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Тройной выстрел</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Откидывание II</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Пронзатель V</span><span class="item-price">7 АР</span></div>
+                    <div class="item-card"><span class="item-name">Быстрая перезарядка III</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Воспламенение</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Пронзающая стрела IV</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Бич членистоногих V</span><span class="item-price">5 АР</span></div>
+                    <div class="item-card"><span class="item-name">Небесная кара V</span><span class="item-price">5 АР</span></div>
+                </div>
+            </section>
 
-  <!-- CONTENT -->
-  <div id="content">
+            <!-- СНАРЯЖЕНИЕ -->
+            <section class="category-section" id="gear">
+                <div class="category-title"><i class="fa-solid fa-shield-halved"></i> Снаряжение и Инструменты</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Незеритовый меч (Топ зачар без починки)</span><span class="item-price">90 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый нагрудник (Топ зачар)</span><span class="item-price">86 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовые ботинки (Топ зачар)</span><span class="item-price">80 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый шлем (Топ зачар)</span><span class="item-price">65 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовые поножи (Топ зачар)</span><span class="item-price">48 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовая кирка (Топ зачар без починки)</span><span class="item-price">46 АР</span></div>
+                    <div class="item-card"><span class="item-name">Лук фулл зачар</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Удочка фулл зачар</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Алмазная кирка (Топ зачар без починки)</span><span class="item-price">15 АР</span></div>
+                    <!-- Чистая незеритка -->
+                    <div class="item-card"><span class="item-name">Незеритовый нагрудник (Чистый)</span><span class="item-price">29 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовые поножи (Чистые)</span><span class="item-price">28 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый шлем (Чистый)</span><span class="item-price">26 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовые ботинки (Чистые)</span><span class="item-price">25 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовая кирка (Чистая)</span><span class="item-price">25 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый меч (Чистый)</span><span class="item-price">24 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый топор (Чистый)</span><span class="item-price">24 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовая лопата (Чистая)</span><span class="item-price">22 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовая мотыга (Чистая)</span><span class="item-price">22 АР</span></div>
+                    <!-- Алмаз -->
+                    <div class="item-card"><span class="item-name">Алмазный нагрудник</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Алмазные поножи</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Алмазный шлем</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Алмазные ботинки</span><span class="item-price">2 АР</span></div>
+                </div>
+            </section>
 
-    <div class="section-title-row">
-      <div class="section-title-text">Видео с Валерой, пользующиеся спросом в Украине 🇺🇦</div>
-    </div>
+            <!-- ШАБЛОНЫ -->
+            <section class="category-section" id="templates">
+                <div class="category-title"><i class="fa-solid fa-hammer"></i> Кузнечные шаблоны</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Незеритовое улучшение</span><span class="item-price">7 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Прилив»</span><span class="item-price">15 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Скульптор»</span><span class="item-price">15 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Вождь»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Вредина»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Дебри»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Дюна»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Искатель»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Око»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Рыло»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Собиратель»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Тишина»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Хранитель»</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Берег»</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Ось»</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Поток»</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Extre</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Ребро»</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Отделка «Страж»</span><span class="item-price">8 АР</span></div>
+                </div>
+            </section>
 
-    <!-- TAGS -->
-    <div class="tags-row">
-      <div class="tag-pill">красивый фейл</div>
-      <div class="tag-pill">быстро и нелепо</div>
-      <div class="tag-pill">с котом</div>
-      <div class="tag-pill">на кухне</div>
-      <div class="tag-pill">за 40</div>
-      <div class="tag-pill">игра в cs:go</div>
-      <div class="tag-pill">соседи</div>
-      <div class="tag-pill">настоящий домашний быт</div>
-      <div class="tag-pill">жёсткий сон</div>
-      <div class="tag-next">›</div>
-    </div>
+            <!-- СТРОЙМАТЕРИАЛЫ -->
+            <section class="category-section" id="building">
+                <div class="category-title"><i class="fa-solid fa-trowel-bricks"></i> Строительные блоки & Стройматериалы (по 64 шт.)</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Мангровое бревно</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Блок бамбука</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Бревна (все типы)</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Бамбуковые доски</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Все типы досок</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Вся листва</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Резная книжная полка</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Книжная полка</span><span class="item-price">18 АР</span></div>
+                    <div class="item-card"><span class="item-name">Бледный мох</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Блок мха</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Земля / Дерн</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Глина / Гравий / Стекло</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Песок / Песчаник</span><span class="item-price">2 / 4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Красный песок / песчаник</span><span class="item-price">4 / 8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Булыжник / Камень</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Замшелый камень</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Туф / Глубинный сланец</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Андезит / Диорит / Гранит</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Кальцит</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Аметист блочный</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Терракота / Бетон</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Глазурованная керамика</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Призмарин / Медный блок</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Блок мёда (16 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Блок слизи</span><span class="item-price">9 АР</span></div>
+                    <div class="item-card"><span class="item-name">Обсидиан</span><span class="item-price">10 АР</span></div>
+                </div>
+            </section>
 
-    <!-- ROW 1 -->
-    <div class="video-grid">
+            <!-- ЧИСТЫЕ РЕСУРСЫ -->
+            <section class="category-section" id="resources">
+                <div class="category-title"><i class="fa-solid fa-cubes"></i> Чистые ресурсы</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Алмазный блок (16 шт.)</span><span class="item-price">48 АР</span></div>
+                    <div class="item-card"><span class="item-name">Золотой блок (64 шт.)</span><span class="item-price">24 АР</span></div>
+                    <div class="item-card"><span class="item-name">Изумрудная руда (1 шт.)</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Лазуритовый блок (64 шт.)</span><span class="item-price">9 АР</span></div>
+                    <div class="item-card"><span class="item-name">Железный / Изумрудный блок (64 шт.)</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незеритовый слиток (1 шт.)</span><span class="item-price">23 АР</span></div>
+                    <div class="item-card"><span class="item-name">Древние обломки (1 шт.)</span><span class="item-price">5 АР</span></div>
+                    <div class="item-card"><span class="item-name">Золото / Кожа (64 шт.)</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Алмаз (3 шт.)</span><span class="item-price">1 АР</span></div>
+                    <div class="item-card"><span class="item-name">Железо / Изумруд / Медь / Лазурит (64 шт.)</span><span class="item-price">1 АР</span></div>
+                    <div class="item-card"><span class="item-name">Слизь / Осколок аметиста (64 шт.)</span><span class="item-price">1 АР</span></div>
+                    <div class="item-card"><span class="item-name">Книга (64 шт.)</span><span class="item-price">4 АР</span></div>
+                </div>
+            </section>
 
-      <div class="video-item">
-        <div class="video-thumb g1">
-          <div class="thumb-inner">🎮</div>
-          <span class="v-hd">4K</span>
-          <span class="v-duration">14:32</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraGaming</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">Валера снова проигрывает в CS:GO — эпичный фейл без купюр</div>
-            <div class="v-views">2,3M просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
+            <!-- АЛХИМИЯ -->
+            <section class="category-section" id="alchemy">
+                <div class="category-title"><i class="fa-solid fa-flask"></i> Зелья, Растения & Алхимия</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Плод хоруса (64 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Приготовленный хорус (64 шт.)</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Цветок хоруса (64 шт.)</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Факельник / Кувшинница (64 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Любой цветок (64 шт.)</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье черепашьей мощи IV</span><span class="item-price">7 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье силы / невидимости</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье огнестойкости / ноч. зрения</span><span class="item-price">1 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье прыгучести / стремительности / регена</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зелье опыта (1 шт.)</span><span class="item-price">1 АР</span></div>
+                    <div class="item-card"><span class="item-name">Слеза гаста (32 шт.)</span><span class="item-price">12 АР</span></div>
+                    <div class="item-card"><span class="item-name">Огненный порошок (64 шт.)</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Огненный стержень (32 шт.)</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Незерский нарост (64 шт.)</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Драконье дыхание (16 шт.)</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зловещая бутылочка 1 / 2 / 3</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зловещая бутылочка 4 / 5</span><span class="item-price">3 АР</span></div>
+                </div>
+            </section>
 
-      <div class="video-item">
-        <div class="video-thumb g2">
-          <div class="thumb-inner">😴</div>
-          <span class="v-hd">HD</span>
-          <span class="v-duration">8:01:23</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraASMR</a> <span class="v-premium-star">★</span></div>
-            <div class="v-title">Валера спит 8 часов — полная запись без монтажа (ASMR 4K)</div>
-            <div class="v-views">47M просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
+            <!-- ЕДА -->
+            <section class="category-section" id="food">
+                <div class="category-title"><i class="fa-solid fa-apple-whole"></i> Еда</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Золотое яблоко (16 шт.)</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Зачар. золотое яблоко (1 шт.)</span><span class="item-price">9 АР</span></div>
+                    <div class="item-card"><span class="item-name">Яблоко (64 шт.)</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Морковь / Ломтик арбуза (64 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Золотая морковь (64 шт.)</span><span class="item-price">5 АР</span></div>
+                    <div class="item-card"><span class="item-name">Арбуз блок (64 шт.)</span><span class="item-price">8 АР</span></div>
+                    <div class="item-card"><span class="item-name">Сырое мясо / рыба (64 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Жареное мясо / рыба (64 шт.)</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Печенье (64 шт.)</span><span class="item-price">6 АР</span></div>
+                    <div class="item-card"><span class="item-name">Хлеб (64 шт.)</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Сахарный тростник (64 шт.)</span><span class="item-price">1 АР</span></div>
+                </div>
+            </section>
 
-      <div class="video-item">
-        <div class="video-thumb g3">
-          <div class="thumb-inner">🍕</div>
-          <span class="v-ru">RU</span>
-          <span class="v-duration">22:17</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraEats</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">Валера пытается приготовить пиццу — что пошло не так</div>
-            <div class="v-views">876K просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
+            <!-- PVP -->
+            <section class="category-section" id="pvp">
+                <div class="category-title"><i class="fa-solid fa-jet-fighter"></i> PvP & Мувмент</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Кристалл Края (16 шт.)</span><span class="item-price">16 АР</span></div>
+                    <div class="item-card"><span class="item-name">Динамит (64 шт.)</span><span class="item-price">18 АР</span></div>
+                    <div class="item-card"><span class="item-name">Эндер-жемчуг (16 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Стержень вихря (32 шт.)</span><span class="item-price">4 АР</span></div>
+                    <div class="item-card"><span class="item-name">Порох (64 шт.)</span><span class="item-price">3 АР</span></div>
+                    <div class="item-card"><span class="item-name">Стрела (64 шт.)</span><span class="item-price">2 АР</span></div>
+                    <div class="item-card"><span class="item-name">Фейерверк 1 ур. (64 шт.)</span><span class="item-price">5 АР</span></div>
+                    <div class="item-card"><span class="item-name">Фейерверк 2 ур. (64 шт.)</span><span class="item-price">10 АР</span></div>
+                    <div class="item-card"><span class="item-name">Фейерверк 3 ур. (64 шт.)</span><span class="item-price">15 АР</span></div>
+                </div>
+            </section>
 
-      <!-- AD -->
-      <div class="video-item">
-        <div class="video-thumb" style="background:#111; border:1px solid #2a2a2a; flex-direction:column; gap:8px;">
-          <span style="font-size:28px;">👑</span>
-          <span style="font-size:22px; font-weight:900; color:var(--orange);">VALERAHUB</span>
-          <span style="font-size:14px; color:#fff; font-weight:bold;">PREMIUM</span>
-          <span style="font-size:26px; font-weight:900; color:#fff;">$0.00 на 7 дней</span>
-          <span class="v-ad-badge">Ad</span>
-        </div>
-        <div class="remove-ad"><a href="#" style="color:#555; font-size:10px;">Удалить рекламу</a></div>
-      </div>
-    </div>
+            <!-- ПЛАСТИНКИ -->
+            <section class="category-section" id="music">
+                <div class="category-title"><i class="fa-solid fa-compact-disc"></i> Редкие музыкальные пластинки</div>
+                <div class="items-grid">
+                    <div class="item-card"><span class="item-name">Plastinka PigStep</span><span class="item-price">150 АР</span></div>
+                    <div class="item-card"><span class="item-name">Пластинка Relic</span><span class="item-price">150 АР</span></div>
+                    <div class="item-card"><span class="item-name">Пластинка Creator</span><span class="item-price">100 АР</span></div>
+                    <div class="item-card"><span class="item-name">Остальные пластинки</span><span class="item-price">20 АР</span></div>
+                </div>
+            </section>
 
-    <!-- ROW 2 -->
-    <div class="video-grid">
-
-      <div class="video-item">
-        <div class="video-thumb g4">
-          <div class="thumb-inner">🚗</div>
-          <span class="v-hd">HD</span>
-          <span class="v-duration">22:50</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraLife</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">Валера паркуется 47 раз — жена нашла видео и не может остановить смех</div>
-            <div class="v-views">32,5K просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb g5">
-          <div class="thumb-inner">🐱</div>
-          <span class="v-hd">HD</span>
-          <span class="v-duration">25:36</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraHome</a> <span class="v-premium-star">★</span></div>
-            <div class="v-title">Кот Валеры — «Ты можешь присунуть, если хочешь» — он про еду</div>
-            <div class="v-views">38,1M просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb g6">
-          <div class="thumb-inner">💼</div>
-          <span class="v-ru">RU</span>
-          <span class="v-duration">5:17</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraWork</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">Лучшие домашние записи Валеры с работы с разговорами</div>
-            <div class="v-views">494K просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb g7">
-          <div class="thumb-inner">🛒</div>
-          <span class="v-hd">HD</span>
-          <span class="v-duration">20:43</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraShop</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">Валера заблудился в IKEA — жена пульсирует от злости и сладко злится</div>
-            <div class="v-views">9,1M просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 3 -->
-    <div class="video-grid">
-
-      <div class="video-item">
-        <div class="video-thumb g8">
-          <div class="thumb-inner">🎤</div>
-          <span class="v-ad-badge">Ad</span>
-          <span class="v-duration">5:12</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraMusic</a></div>
-            <div class="v-title">Выбей свою мелодию — будь-коли, как Валера 🍑🔥</div>
-            <div class="v-views" style="color:#888">Ad · ValeraFans.ai</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb g9">
-          <div class="thumb-inner">💻</div>
-          <span class="v-hd">HD</span>
-          <span class="v-duration">78:43</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraTech</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">Валера учит Python — получает 2 ошибки, смотрит в монитор и не кончает разбираться</div>
-            <div class="v-views">236K просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb g10">
-          <div class="thumb-inner">🤔</div>
-          <span class="v-hd">HD</span>
-          <span class="v-duration">0:47</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraThinks</a></div>
-            <div class="v-title">Валера думает 47 секунд — жена умоляет о смысле жизни</div>
-            <div class="v-views">26,5K просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb g11">
-          <div class="thumb-inner">💪</div>
-          <span class="v-hd">4K</span>
-          <span class="v-duration">15:12</span>
-        </div>
-        <div class="v-meta">
-          <div class="v-meta-main">
-            <div class="v-author-row"><a href="#" class="v-author">ValeraFit</a> <span class="v-verified">✔</span></div>
-            <div class="v-title">ValeraFIT — Спортивный Валера McKinley берёт и откладывает гантели</div>
-            <div class="v-views">1M просмотров</div>
-          </div>
-          <span class="v-dots">⋮</span>
-        </div>
-      </div>
+        </main>
     </div>
 
-  </div><!-- /content -->
+    <script>
+        // Плавный скролл к секциям
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                
+                // Обновление активного класса в меню
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                event.currentTarget.parentElement.classList.add('active');
+            }
+        }
 
-  <!-- FOOTER -->
-  <div id="footer">
-    <div class="footer-inner">
-      <div class="footer-logo-row">
-        <span class="logo-w">Valera</span><span class="logo-o">hub</span>
-      </div>
-      <div class="footer-links">
-        <a href="#">О нас</a><a href="#">Правила использования</a>
-        <a href="#">Политика конфиденциальности</a><a href="#">DMCA</a>
-        <a href="#">2257</a><a href="#">Для рекламодателей</a>
-        <a href="#">Стать партнёром</a><a href="#">Карьера</a>
-        <a href="#">Обратная связь</a><a href="#">Помощь</a>
-        <a href="#">Родительский контроль</a>
-      </div>
-      <div class="footer-copy">© 2026 ValeraHub Inc. All rights reserved. Все персонажи вымышлены и являются совершеннолетними. 18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement</div>
-    </div>
-  </div>
+        // Динамический фильтр/поиск предметов
+        function filterItems() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.item-card');
+            const sections = document.querySelectorAll('.category-section');
 
-</div><!-- /site -->
+            cards.forEach(card => {
+                const name = card.querySelector('.item-name').innerText.toLowerCase();
+                if (name.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
 
-<script>
-function enterSite() {
-  document.getElementById('age-gate').style.display = 'none';
-  document.getElementById('site').style.display = 'block';
-}
-</script>
+            // Прятать пустые секции при поиске
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.item-card[style="display: flex;"]');
+                const totalCards = section.querySelectorAll('.item-card');
+                
+                if (query !== "" && visibleCards.length === 0 && totalCards.length > 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
